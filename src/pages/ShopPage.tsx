@@ -35,47 +35,56 @@ export function ShopPage({ onNavigate, categoryFilter }: ShopPageProps) {
   }, [selectedCategory, sortBy]);
 
   async function fetchCategories() {
-    const { data } = await supabase.from('categories').select('*').order('sort_order');
-    if (data) setCategories(data);
+    try {
+      const { data } = await supabase.from('categories').select('*').order('sort_order');
+      if (data) setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
   }
 
   async function fetchProducts() {
     setLoading(true);
-    let query = supabase
-      .from('products')
-      .select('*, images:product_images(*), category:categories(*)')
-      .eq('is_active', true);
+    try {
+      let query = supabase
+        .from('products')
+        .select('*, images:product_images(*), category:categories(*)')
+        .eq('is_active', true);
 
-    if (selectedCategory) {
-      query = query.eq('category_id', selectedCategory);
-    }
-
-    if (sortBy === 'price_asc') {
-      query = query.order('price', { ascending: true });
-    } else if (sortBy === 'price_desc') {
-      query = query.order('price', { ascending: false });
-    } else if (sortBy === 'name') {
-      query = query.order('name', { ascending: true });
-    } else {
-      query = query.order('created_at', { ascending: false });
-    }
-
-    const { data } = await query;
-
-    if (data) {
-      let filtered = data;
-
-      if (searchTerm) {
-        filtered = filtered.filter((p) =>
-          p.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+      if (selectedCategory) {
+        query = query.eq('category_id', selectedCategory);
       }
 
-      filtered = filtered.filter(
-        (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
-      );
+      if (sortBy === 'price_asc') {
+        query = query.order('price', { ascending: true });
+      } else if (sortBy === 'price_desc') {
+        query = query.order('price', { ascending: false });
+      } else if (sortBy === 'name') {
+        query = query.order('name', { ascending: true });
+      } else {
+        query = query.order('created_at', { ascending: false });
+      }
 
-      setProducts(filtered);
+      const { data } = await query;
+
+      if (data) {
+        let filtered = data;
+
+        if (searchTerm) {
+          filtered = filtered.filter((p) =>
+            p.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        }
+
+        filtered = filtered.filter(
+          (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
+        );
+
+        setProducts(filtered);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setProducts([]);
     }
 
     setLoading(false);

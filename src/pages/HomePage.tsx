@@ -32,25 +32,52 @@ export function HomePage({ onNavigate }: { onNavigate: (page: string, id?: strin
   }, [banners.length]);
 
   async function fetchData() {
-    const [bannersRes, categoriesRes, productsRes] = await Promise.all([
-      supabase.from('banners').select('*').eq('is_active', true).order('sort_order'),
-      supabase.from('categories').select('*').order('sort_order').limit(6),
-      supabase
-        .from('products')
-        .select('*, images:product_images(*)')
-        .eq('is_featured', true)
-        .eq('is_active', true)
-        .limit(8),
-    ]);
+    try {
+      const [bannersRes, categoriesRes, productsRes] = await Promise.all([
+        supabase.from('banners').select('*').eq('is_active', true).order('sort_order'),
+        supabase.from('categories').select('*').order('sort_order').limit(6),
+        supabase
+          .from('products')
+          .select('*, images:product_images(*)')
+          .eq('is_featured', true)
+          .eq('is_active', true)
+          .limit(8),
+      ]);
 
-    if (bannersRes.data) setBanners(bannersRes.data);
-    if (categoriesRes.data) setCategories(categoriesRes.data);
-    if (productsRes.data) setFeaturedProducts(productsRes.data);
+      if (bannersRes.data) setBanners(bannersRes.data);
+      if (categoriesRes.data) setCategories(categoriesRes.data);
+      if (productsRes.data) setFeaturedProducts(productsRes.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
 
   return (
     <div className="min-h-screen">
       <div className="relative h-[600px] overflow-hidden">
+        {banners.length === 0 && (
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500">
+            <div className="relative h-full flex items-center">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="max-w-2xl animate-fade-in text-white">
+                  <h1 className="text-6xl font-bold mb-6 leading-tight">
+                    Transform Your Space
+                  </h1>
+                  <p className="text-2xl text-white/90 mb-8">
+                    Discover our curated collection of premium furniture
+                  </p>
+                  <button
+                    onClick={() => onNavigate('shop')}
+                    className="bg-white text-amber-600 px-8 py-4 rounded-xl hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl text-lg font-medium inline-flex items-center gap-2"
+                  >
+                    Shop Now
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {banners.map((banner, index) => (
           <div
             key={banner.id}

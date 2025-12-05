@@ -24,30 +24,43 @@ export function ProductDetailPage({ productId, onNavigate }: ProductDetailPagePr
   }, [productId]);
 
   async function fetchProduct() {
-    const { data, error } = await supabase
-      .from('products')
-      .select('*, images:product_images(*), category:categories(*)')
-      .eq('id', productId)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*, images:product_images(*), category:categories(*)')
+        .eq('id', productId)
+        .single();
 
-    if (data) {
-      setProduct(data);
-      if (data.category_id) {
-        fetchRelatedProducts(data.category_id);
+      if (error) {
+        console.error('Error fetching product:', error);
+        return;
       }
+
+      if (data) {
+        setProduct(data);
+        if (data.category_id) {
+          fetchRelatedProducts(data.category_id);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching product:', error);
     }
   }
 
   async function fetchRelatedProducts(categoryId: string) {
-    const { data } = await supabase
-      .from('products')
-      .select('*, images:product_images(*)')
-      .eq('category_id', categoryId)
-      .eq('is_active', true)
-      .neq('id', productId)
-      .limit(4);
+    try {
+      const { data } = await supabase
+        .from('products')
+        .select('*, images:product_images(*)')
+        .eq('category_id', categoryId)
+        .eq('is_active', true)
+        .neq('id', productId)
+        .limit(4);
 
-    if (data) setRelatedProducts(data);
+      if (data) setRelatedProducts(data);
+    } catch (error) {
+      console.error('Error fetching related products:', error);
+    }
   }
 
   const handleAddToCart = async () => {
