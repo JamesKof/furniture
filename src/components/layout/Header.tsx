@@ -52,7 +52,7 @@ export function Header({ onNavigate, currentPage, onOpenCart }: HeaderProps) {
                 onClick={() => onNavigate('home')}
                 className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent hover:from-amber-700 hover:to-orange-700 transition-all"
               >
-                LuxeFurniture
+                StatusGh Furniture
               </button>
             </div>
 

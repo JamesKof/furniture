@@ -1,4 +1,4 @@
-# LuxeFurniture - Complete Furniture eCommerce System
+# StatusGh Furniture - Complete Furniture eCommerce System
 
 A modern, production-ready furniture eCommerce platform built with React, TypeScript, Tailwind CSS, Supabase, and Paystack payment integration.
 

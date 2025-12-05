@@ -23,7 +23,7 @@ export function PrivacyPage() {
               Information We Collect
             </h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              At LuxeFurniture, we respect your privacy and are committed to protecting your personal data.
+              At StatusGh Furniture, we respect your privacy and are committed to protecting your personal data.
               We collect information that you provide directly to us, including:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-600 ml-4">
@@ -151,8 +151,8 @@ export function PrivacyPage() {
               please contact us at:
             </p>
             <div className="mt-4 p-6 bg-amber-50 rounded-xl">
-              <p className="text-gray-700 font-medium">LuxeFurniture Customer Care</p>
-              <p className="text-gray-600">Email: privacy@luxefurniture.com</p>
+              <p className="text-gray-700 font-medium">StatusGh Furniture Customer Care</p>
+              <p className="text-gray-600">Email: privacy@statusghfurniture.com</p>
               <p className="text-gray-600">Phone: 020 740 7270</p>
             </div>
           </section>

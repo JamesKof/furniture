@@ -37,7 +37,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <span className="gradient-text">Creating Memories</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Welcome to LuxeFurniture, where timeless design meets exceptional craftsmanship.
+            Welcome to StatusGh Furniture, where timeless design meets exceptional craftsmanship.
             We believe your home deserves furniture that reflects your style and stands the test of time.
           </p>
         </div>
@@ -54,7 +54,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
           <div className="flex flex-col justify-center space-y-6 animate-fade-in">
             <h2 className="text-3xl font-bold text-gray-900">Our Story</h2>
             <p className="text-gray-600 leading-relaxed">
-              Founded with a passion for exceptional furniture and design, LuxeFurniture has been transforming
+              Founded with a passion for exceptional furniture and design, StatusGh Furniture has been transforming
               houses into homes for over a decade. We started with a simple vision: to make premium,
               beautifully designed furniture accessible to everyone.
             </p>

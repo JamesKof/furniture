@@ -1,4 +1,4 @@
-# Deployment Guide for Vercel
+# StatusGh Furniture - Deployment Guide for Vercel
 
 ## Environment Variables
 
