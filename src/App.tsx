@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { Header } from './components/layout/Header';
 import { MiniCart } from './components/cart/MiniCart';
+import { CookieConsent } from './components/CookieConsent';
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
@@ -12,6 +13,9 @@ import { AccountPage } from './pages/AccountPage';
 import { OrdersPage } from './pages/OrdersPage';
 import { WishlistPage } from './pages/WishlistPage';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { AboutPage } from './pages/AboutPage';
+import { PrivacyPage } from './pages/PrivacyPage';
+import { ContactPage } from './pages/ContactPage';
 
 function AppContent() {
   const { loading } = useAuth();
@@ -43,14 +47,14 @@ function AppContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-gray-500 text-lg">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Header
         onNavigate={handleNavigate}
         currentPage={currentPage}
@@ -66,12 +70,17 @@ function AppContent() {
       {currentPage === 'orders' && <OrdersPage onNavigate={handleNavigate} />}
       {currentPage === 'wishlist' && <WishlistPage onNavigate={handleNavigate} />}
       {currentPage === 'admin' && <AdminDashboard onNavigate={handleNavigate} />}
+      {currentPage === 'about' && <AboutPage onNavigate={handleNavigate} />}
+      {currentPage === 'privacy' && <PrivacyPage />}
+      {currentPage === 'contact' && <ContactPage />}
 
       <MiniCart
         isOpen={showCart}
         onClose={() => setShowCart(false)}
         onCheckout={handleCheckout}
       />
+
+      <CookieConsent onNavigate={handleNavigate} />
     </div>
   );
 }
